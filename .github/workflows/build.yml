@@ -13,12 +13,19 @@ jobs:
       - run: echo github.sha ${{github.sha}}
       - run: echo runner.os ${{runner.os}}
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-          ${{ runner.os }}-buildx-
+      # - name: Cache Docker layers
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #     ${{ runner.os }}-buildx-
 
-      - run: 'cd test/testContainers; docker-compose up tutorial'
+      - uses: whoan/docker-build-with-cache-action@v5
+        with:
+          # username: whoan
+          # password: "${{ secrets.DOCKER_HUB_PASSWORD }}"
+          compose_file: test/testContainers/docker-compose.yml
+          push_image_and_stages: false
+
+      # - run: 'cd test/testContainers; docker-compose up tutorial'
