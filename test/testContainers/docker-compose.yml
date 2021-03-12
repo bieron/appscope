@@ -4,4 +4,4 @@ services:
   tutorial:
     image: jbieron/tutorial
     build:
-      context: test/testContainers/tutorial
+      context: tutorial
