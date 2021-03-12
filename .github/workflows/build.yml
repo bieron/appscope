@@ -26,6 +26,5 @@ jobs:
           username: jbieron
           password: "${{ secrets.DOCKERHUB }}"
           compose_file: test/testContainers/docker-compose.yml
-          push_image_and_stages: true
 
       # - run: 'cd test/testContainers; docker-compose up tutorial'
