@@ -6,12 +6,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@master
+#       - name: Set up Docker Buildx
+#         id: buildx
+#         uses: docker/setup-buildx-action@master
 
-      - run: echo github.sha ${{github.sha}}
-      - run: echo runner.os ${{runner.os}}
+#       - run: echo github.sha ${{github.sha}}
+#       - run: echo runner.os ${{runner.os}}
 
       # - name: Cache Docker layers
       #   uses: actions/cache@v2

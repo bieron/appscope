@@ -2,5 +2,6 @@ version: '3.5'
 services:
 
   tutorial:
+    image: jbieron/tutorial
     build:
       context: ./tutorial
