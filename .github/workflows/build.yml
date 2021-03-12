@@ -5,22 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
+
+      - run: echo github.sha ${{github.sha}}
+      - run: echo runner.os ${{runner.os}}
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
         with:
-          go-version: 1.15
-      # - run: apt-get update && apt-get install -y git
-      - run: ./install_build_tools.sh
-      - run: make deps
-      - run: make all
-      - run: make test
-      - run: test/run_integ.sh
-      - env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          CF_DISTRIBUTION_ID: ${{ secrets.CF_DISTRIBUTION_ID }}
-        run: ./deploy.sh
-      - if: startsWith(github.ref, 'refs/tags/v')
-        env:
-          SCOPECI_TOKEN: ${{ secrets.SCOPECI_TOKEN }}
-        run: ./docker/build.sh
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+          ${{ runner.os }}-buildx-
+
+      - run: 'cd test/testContainers; docker-compose up tutorial'

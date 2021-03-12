@@ -6,6 +6,14 @@ services:
       dockerfile: ./interposed_func/Dockerfile
     privileged: true
 
+  tutorial:
+    build:
+      context: tutorial
+      cache_from:
+       - type=local,src=/tmp/.buildx-cache
+      cache_to:
+       - type=local,dest=/tmp/.buildx-cache
+
   cribl:
     build:
       context: .
