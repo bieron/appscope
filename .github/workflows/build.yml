@@ -23,9 +23,9 @@ jobs:
 
       - uses: whoan/docker-build-with-cache-action@v5
         with:
-          # username: whoan
-          # password: "${{ secrets.DOCKER_HUB_PASSWORD }}"
+          username: jbieron
+          password: "${{ secrets.DOCKERHUB }}"
           compose_file: test/testContainers/docker-compose.yml
-          push_image_and_stages: false
+          push_image_and_stages: true
 
       # - run: 'cd test/testContainers; docker-compose up tutorial'
